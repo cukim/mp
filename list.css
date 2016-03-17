@@ -1,0 +1,23 @@
+body, div, table, td {	font-family:Calibri, Verdana, Arial, sans-serif;	font-size: 12px;	color: #444444;	}
+
+
+#divMusicBody	{	}
+#divMusicPlayer {	width:	320px;	height: auto;	/* float:	left;  */	}
+#divMusicID3	{	/* width : 310px;	height: 30px;	*/	}
+
+#divMusicList 		{	width:	100%;	text-align:left;}
+#divMusicFolderList 	{}
+#divMusicFileList	{	float:	left;	width:40%; height:auto;	}
+#divMusicLyric 		{	float:	left;  width:45%;
+				position:absolute;	
+				left: auto; top:10px; right:20px;
+				padding:20px;
+						}
+#divMusicFooter 		{	width:100%;	clear:both; }
+
+#divMusicList ul 	{ 	font-family: "맑은 고딕",돋움; 	font-size: 12px; 	color: #333333; 	margin: 0px; 	padding: 0px; 	}
+#divMusicList li 	{ 	line-height: 18px; margin: 1px 2px 1px 15px; }
+	
+	
+.type_a { text-decoration: underline;	font-weight:bold; cursor:pointer;}
+.type_a:active{ color:red; } 

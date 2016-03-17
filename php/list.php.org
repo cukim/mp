@@ -1,0 +1,135 @@
+﻿<?php
+// ----------------------------------------------------
+	//chdir('.');
+
+	$ff = $_REQUEST["d"];
+	$ff = urldecode($ff);	
+
+	//$fs = strstr($ff, '../');
+	if($ff==''){
+		$rpath = '/';
+	}else{
+		$rdir = dir('/');
+		$rpath = "$rdir->path$ff"; 
+	}
+	//$rpath = iconv("UTF-8", "CP949", $rpath);
+		echo ("* Path = $rpath<br>");
+
+	if(is_dir($rpath)){
+		//echo ("<tr valign=\"top\"><td width=\"140\"><table class=\"table_nb\" >");
+		//	dir_Folder($rpath, $depth);					
+		//echo ("</table></td><tr>");
+
+		//echo ("<tr><td class=\"td0\" ><table class=\"table_nb\" >");
+			MusicFiles($rpath);					
+		//echo ("</table></td></tr>");
+	
+	}else {
+		echo ("Invalid Directory Name : $rpath");
+	}		
+ 
+ 
+ 
+ function MusicFiles($gdir){
+
+	$fdir = dir($gdir);
+	$icount = 1;
+	//echo ("$fdir->path");
+
+	$handle = opendir($gdir);
+	while (false !== ($filename = readdir($handle))) {
+		if (($filename==".")){
+			continue;		 
+		}else{
+			if(is_dir("$gdir/$filename")){
+				$dirs[] = $filename;
+			}else{
+				$files[] = $filename;
+			}
+		}	
+	} //while
+	sort($files);
+	
+	//echo("<tr><th width=30 ><input type=checkbox onclick=\"fSelectAll()\"></th>\n");
+	//echo("    <th width=30 >No</th>\n");
+	//echo("	  <th width=500 >Name</th>\n");
+	//echo("	  <th width=100 >Size</th>\n");
+	//echo("	  <th width=140 >Date</th>\n");
+	//echo("</tr>\n");
+
+	//	while($fn = $fdir->read()){ 
+
+	foreach ($dirs as $fn){
+
+		if (($fn==".")||($fn=="..")){
+			continue;		
+		}else{
+				
+			//$fd = iconv("CP949", "UTF-8", $fn);
+
+			//$fn = iconv("CP949", "UTF-8", $fn);
+			//$dd = urlencode($ff);
+
+			$fff = $fn;
+			
+			//echo("<tr><td align=center></td>\n");
+			//echo("    <td align=center>$icount</td>\n");
+			//echo("	  <td align=left><a href=\"#\" onclick=\"dsel('$fff')\"><img src=\"/images/icon/folder.gif\">$fn</a></td>\n");
+			//echo("</tr>\n");
+
+			echo("$fn\n");
+			
+			$icount++;
+		}
+	}			
+	
+	echo("\n\n");
+
+
+	foreach ($files as $fn){
+
+		$fext = substr($fn,-3);
+		if (($fext=="htm")||($fext=="php")||($fext==".js")||($fext=="css")||($fext=="txt")){ 
+			continue;		
+		}else{
+
+			$fff = "$fdir->path/$fn";
+			//if(!is_dir($ff)){
+				
+			//$fd = iconv("CP949", "UTF-8", $fn);
+
+			//$fn = iconv("CP949", "UTF-8", $fn);
+			//$dd = urlencode($ff);
+			
+			//$fsize = number_format(filesize($ff));
+			//$fdate = date("Y/m/d H:i:s", filemtime($ff));
+			$fnn = substr($fn,0,-4);
+			//echo("<tr><td align=center><input type=checkbox  name=\"chkList\" value=\"$fff\"></td>\n");
+			//echo("    <td align=center>$icount</td>\n");
+			//echo("	  <td align=left><a href=\"#\" onclick=\"psel('$fff')\">$fnn</a></td>\n");
+			
+			echo("$fn\n");
+			
+			//echo("	  <td align=right>$fsize</td>\n");
+			//echo("	  <td align=right>$fdate</td>\n");
+			//echo("</tr>\n");
+
+			$icount++;
+		}
+	}			
+		
+}
+// -----------------------------------------------------------------
+
+function tostring($text){
+return iconv('UTF-16LE', 'UHC', chr(hexdec(substr($text[1], 2, 2))).chr(hexdec(substr($text[1], 0, 2))));
+}
+
+function urlutfchr($text){
+return urldecode(preg_replace_callback('/%u([[:alnum:]]{4})/', 'tostring', $text));
+}
+
+// ------------------------------------------------------------
+ 
+ 
+?>	
